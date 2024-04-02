@@ -21,6 +21,7 @@ loginForm.onsubmit = async (e) => {
       e.target.email.value = "";
       e.target.password.value = "";
       alert(userResult.message);
+      window.location.href = "../Chat/chat.html"
     } else {
       alert(userResult.message);
     }

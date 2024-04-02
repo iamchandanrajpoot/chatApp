@@ -25,6 +25,7 @@ registerForm.onsubmit = async (e) => {
       e.target.phone.value = "";
       e.target.password.value = "";
       alert(userResult.message)
+      window.location.href = "../Login/login.ltml"
     }else{
         alert(userResult.message)
     }
