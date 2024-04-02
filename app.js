@@ -1,9 +1,13 @@
 const express = require("express");
+const dotenv = require("dotenv");
+dotenv.config();
 const cors = require("cors")
 
 const sequelize = require("./config/dbConfig");
 const userRouter = require("./routes/userRoutes");
 
+// associations
+require("./models/associations/user_message.js")
 const app = express();
 
 // handle cors

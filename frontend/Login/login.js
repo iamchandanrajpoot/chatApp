@@ -20,6 +20,7 @@ loginForm.onsubmit = async (e) => {
     if (userResult.success) {
       e.target.email.value = "";
       e.target.password.value = "";
+      localStorage.setItem("authToken", userResult.token)
       alert(userResult.message);
       window.location.href = "../Chat/chat.html"
     } else {
