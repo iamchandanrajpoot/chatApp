@@ -1,9 +1,9 @@
+const { Sequelize } = require("sequelize");
 const Message = require("../models/message");
 const User = require("../models/user");
 
 exports.postMessage = async (req, res) => {
   try {
-    console.log(req.body);
     const userIsntance = await User.findByPk(req.user.id);
     await userIsntance.createMessage({ text: req.body.message });
     res
@@ -17,8 +17,13 @@ exports.postMessage = async (req, res) => {
 
 exports.getMessages = async (req, res) => {
   try {
+    const lastMessageId = req.query.lastMessageId || 0;
     // const userIsntance = await User.findByPk(req.user.id);
-    const messages = await Message.findAll();
+    console.log(typeof parseInt(lastMessageId), lastMessageId)
+    const messages = await Message.findAll({
+      where: { id: { [Sequelize.Op.gt]: parseInt(lastMessageId) } },
+    });
+
     res.status(200).json({ messages, success: true });
   } catch (error) {
     console.error(error);

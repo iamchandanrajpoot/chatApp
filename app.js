@@ -9,6 +9,7 @@ const messageRouter = require("./routes/messageRoutes.js");
 
 // associations
 require("./models/associations/user_message.js")
+
 const app = express();
 
 // handle cors
@@ -26,13 +27,14 @@ app.use((req, res)=>{
   res.send("No route found!")
 })
 
+
 sequelize
 //   .sync({force: true})
   .sync()
   .then(() => {
     console.log("models synced!")
-    app.listen(3000, () => {
-      console.log("App is listening on http://localhost:3000");
+    app.listen(process.env.PORT, () => {
+      console.log(`App is listening on http://localhost:${process.env.PORT}`);
     });
   })
   .catch((error) => {

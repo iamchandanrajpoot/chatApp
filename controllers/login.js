@@ -8,7 +8,7 @@ exports.loginController = async (req, res) => {
     const user = await User.findOne({ where: { email: req.body.email } });
     if (user) {
       if (await bcrypt.compare(req.body.password, user.password)) {
-        jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY, (err, token) => {
+        jwt.sign({id: user.id}, process.env.JWT_SECRET_KEY, (err, token) => {
           if (err) {
             return res
               .status(500)
