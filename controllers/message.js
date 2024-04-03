@@ -1,3 +1,4 @@
+const Message = require("../models/message");
 const User = require("../models/user");
 
 exports.postMessage = async (req, res) => {
@@ -16,8 +17,8 @@ exports.postMessage = async (req, res) => {
 
 exports.getMessages = async (req, res) => {
   try {
-    const userIsntance = await User.findByPk(req.user.id);
-    const messages = await userIsntance.getMessages();
+    // const userIsntance = await User.findByPk(req.user.id);
+    const messages = await Message.findAll();
     res.status(200).json({ messages, success: true });
   } catch (error) {
     console.error(error);
