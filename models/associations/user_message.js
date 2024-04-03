@@ -1,5 +1,5 @@
-const Messagge = require("../message");
+const Message = require("../message");
 const User = require("../user");
 
-User.hasMany(Messagge, {foreignKey: "userId"})
-Messagge.belongsTo(User, {foreignKey: "userId"});
+User.hasMany(Message, {foreignKey: "userId"})
+Message.belongsTo(User, {foreignKey: "userId"});
