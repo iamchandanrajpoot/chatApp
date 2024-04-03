@@ -13,29 +13,35 @@ async function getMessages() {
 }
 // dispaly users
 const usersUl = document.getElementById("users");
-document.addEventListener("DOMContentLoaded",async function displayJoinedUsers() {
-  users.forEach((user) => {
-    const li = document.createElement("li");
-    li.innerHTML = `${user.name} joined`;
-    usersUl.appendChild(li);
-  });
-  //   show messsages
-  const messageResult = await getMessages();
-  console.log(messageResult)
-  const messagesUl = document.getElementById("messages");
-  if (messageResult.messages) {
-    console.log(messageResult.messages)
-    messageResult.messages.forEach((message) => {
+document.addEventListener(
+  "DOMContentLoaded",
+  async function displayJoinedUsers() {
+    users.forEach((user) => {
       const li = document.createElement("li");
-      li.innerHTML = `${message.text}`;
-      messagesUl.appendChild(li);
+      li.innerHTML = `${user.name} joined`;
+      usersUl.appendChild(li);
     });
-  }else{
-    const li = document.createElement("li");
-    li.innerHTML = "No message found!"
-    messagesUl.appendChild(li)
+    //   show messsages
+    setInterval(async () => {
+      const messageResult = await getMessages();
+      console.log(messageResult);
+      const messagesUl = document.getElementById("messages");
+      messagesUl.innerHTML= ""
+      if (messageResult.messages) {
+        console.log(messageResult.messages);
+        messageResult.messages.forEach((message) => {
+          const li = document.createElement("li");
+          li.innerHTML = `${message.text}`;
+          messagesUl.appendChild(li);
+        });
+      } else {
+        const li = document.createElement("li");
+        li.innerHTML = "No message found!";
+        messagesUl.appendChild(li);
+      }
+    }, 1000);
   }
-});
+);
 
 // send messages
 const sendMsgBtn = document.getElementById("send-message");
