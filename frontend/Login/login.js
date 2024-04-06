@@ -22,7 +22,7 @@ loginForm.onsubmit = async (e) => {
       e.target.password.value = "";
       localStorage.setItem("authToken", userResult.token)
       alert(userResult.message);
-      window.location.href = "../Chat/chat.html"
+      window.location.href ="../Home/index.html"
     } else {
       alert(userResult.message);
     }

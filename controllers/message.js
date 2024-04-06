@@ -4,8 +4,7 @@ const User = require("../models/user");
 
 exports.postMessage = async (req, res) => {
   try {
-    const userIsntance = await User.findByPk(req.user.id);
-    await userIsntance.createMessage({ text: req.body.message });
+    await req.user.createMessage({ message: req.body.message });
     res
       .status(201)
       .json({ message: "message posted successfully", success: true });

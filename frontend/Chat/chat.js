@@ -35,7 +35,7 @@ document.addEventListener(
     clearInterval(setintervalId);
 
     //show messages
-    setintervalId = setInterval(async () => {
+    // setintervalId = setInterval(async () => {
       const messageResult = await getMessages();
       console.log("fetch new message data");
       console.log(messageResult);
@@ -75,7 +75,7 @@ document.addEventListener(
       if (messages && messages.length > 0) {
         messages.forEach((message) => {
           const li = document.createElement("li");
-          li.innerHTML = `${message.text}`;
+          li.innerHTML = `${message.message}`;
           messagesUl.appendChild(li);
         });
       } else {
@@ -83,7 +83,7 @@ document.addEventListener(
         li.innerHTML = "No message found!";
         messagesUl.appendChild(li);
       }
-    }, 1000);
+    // }, 1000);
   }
 );
 

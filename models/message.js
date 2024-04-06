@@ -8,10 +8,15 @@ const Message = sequelize.define("Message", {
     allowNull: false,
     primaryKey: true,
   },
-  text: {
-    type: DataTypes.STRING,
+  message: {
+    type: DataTypes.TEXT,
     allowNull: false,
   },
-});
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false
+  }
+}, {updatedAt: false});
 
 module.exports = Message;

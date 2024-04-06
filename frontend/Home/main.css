@@ -1,0 +1,180 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  /* Navbar styles */
+  .navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    line-height: 50px;
+  }
+  .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+  }
+ 
+ .nav-links button{
+    border: none;
+    background-color: inherit;
+    color: #fff;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+ /* Style the tab */
+ .tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 300px;
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
+
+  /* Style the buttons inside the tab */
+  .tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+
+  /* Create an active/current "tab button" class */
+  .tab button.active {
+    background-color: #ccc;
+  }
+
+  /* Style the tab content */
+  #tabcontent-wrapper {
+    position: relative;
+    background-image: url(./images/body-bgc.jpg);
+    background-color: rgba(255, 255, 255, 1);
+    float: left;
+    width: calc(100% - 300px);
+    border-left: none;
+    height: calc(100vh - 100px);
+  }
+  .tabcontent {
+    display: none;
+  }
+
+  .group-header{
+    background-color: rebeccapurple;
+    padding: 10px 20px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .group-header span{
+    display: block;
+  }
+
+  .send-message-wrapper{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rebeccapurple; */
+  }
+
+  .send-message-wrapper input[type="text"]{
+    flex: 4;
+    padding: 6px;
+    font-size: 17px;
+  }
+
+  .send-message-wrapper button{
+    flex: 1;
+    padding: 8px;
+    font-size: 17px;
+    background-color: #132df2;
+    color: #fff;
+    border: none;
+  }
+.footer {
+    background-color: #333;
+    color: #fff;
+    /* padding: 20px; */
+    text-align: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+  }
+
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    display: none; /* Hide the overlay by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+
+  /* Style for the popup container */
+  .popup {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Style for the form inside the popup */
+  .popup form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Style for the close button */
+  .popup .close {
+    align-self: flex-end;
+    cursor: pointer;
+  }
+
+
+  /* group messages */
+
+  .group-messages{
+    list-style-type: none;
+    /* background-color: red; */
+    color: #1f1e1e;
+    padding: 10px 12px;
+  }
+
+  .group-messages li{
+    padding: 2px 0;
+  }

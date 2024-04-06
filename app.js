@@ -6,9 +6,11 @@ const cors = require("cors")
 const sequelize = require("./config/dbConfig");
 const userRouter = require("./routes/userRoutes");
 const messageRouter = require("./routes/messageRoutes.js");
+const groupRouter = require("./routes/groupRoutes.js");
+
 
 // associations
-require("./models/associations/user_message.js")
+require("./models/association.js")
 
 const app = express();
 
@@ -22,6 +24,7 @@ app.use(express.json());
 // handling routes
 app.use("/user", userRouter)
 app.use("/message", messageRouter)
+app.use("/groups", groupRouter)
 
 app.use((req, res)=>{
   res.send("No route found!")
