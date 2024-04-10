@@ -36,7 +36,9 @@ sequelize
   .then(() => {
     console.log("models synced!");
     app.listen(process.env.PORT, () => {
-      console.log(`App is listening on http://localhost:${process.env.PORT}`);
+      console.log(
+        `App is listening on http://15.206.195.100:${process.env.PORT}`
+      );
     });
   })
   .catch((error) => {

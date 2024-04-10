@@ -17,14 +17,17 @@ function parseJwt(token) {
 
 const makeUserAdmin = async (data) => {
   try {
-    const response = await fetch(`http://localhost:3000/groups/make-admin`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("authToken"),
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      `http://15.206.195.100:3000/groups/make-admin`,
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("authToken"),
+        },
+        body: JSON.stringify(data),
+      }
+    );
     const result = await response.json();
     return result;
   } catch {
@@ -34,14 +37,17 @@ const makeUserAdmin = async (data) => {
 
 const removeUserFromGroup = async (data) => {
   try {
-    const response = await fetch(`http://localhost:3000/groups/remove-user`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("authToken"),
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      `http://15.206.195.100:3000/groups/remove-user`,
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("authToken"),
+        },
+        body: JSON.stringify(data),
+      }
+    );
     const result = await response.json();
     if (result.success) {
       return result;
@@ -56,7 +62,7 @@ const removeUserFromGroup = async (data) => {
 const addUserToGroupApi = async (data) => {
   console.log(data);
   try {
-    const response = await fetch("http://localhost:3000/groups/add-user", {
+    const response = await fetch("http://15.206.195.100:3000/groups/add-user", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +85,7 @@ const addUserToGroupApi = async (data) => {
 const getRemainingUsers = async (groupId) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/groups/${groupId}/remaining-users`,
+      `http://15.206.195.100:3000/groups/${groupId}/remaining-users`,
       {
         method: "get",
         headers: {
@@ -103,7 +109,7 @@ const getRemainingUsers = async (groupId) => {
 
 async function getGroupUsersApi(groupId) {
   const response = await fetch(
-    `http://localhost:3000/groups/${groupId}/members`,
+    `http://15.206.195.100:3000/groups/${groupId}/members`,
     {
       method: "GET",
       headers: new Headers({
@@ -129,7 +135,7 @@ async function getGroupMessages(groupId) {
   console.log("lastmsg id", lastMsgId);
   try {
     const response = await fetch(
-      `http://localhost:3000/groups/${groupId}/messages/?lastMessageId=${lastMsgId}`,
+      `http://15.206.195.100:3000/groups/${groupId}/messages/?lastMessageId=${lastMsgId}`,
       {
         method: "get",
         headers: {
@@ -148,7 +154,7 @@ async function getGroupMessages(groupId) {
 async function postMessageInGroup(data, groupId) {
   try {
     const response = await fetch(
-      `http://localhost:3000/groups/${groupId}/messages`,
+      `http://15.206.195.100:3000/groups/${groupId}/messages`,
       {
         method: "post",
         headers: {
@@ -167,7 +173,7 @@ async function postMessageInGroup(data, groupId) {
 
 async function getGroups() {
   try {
-    const response = await fetch(`http://localhost:3000/groups/`, {
+    const response = await fetch(`http://15.206.195.100:3000/groups/`, {
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -184,7 +190,7 @@ async function getGroups() {
 
 async function createGroup(data) {
   try {
-    const response = await fetch("http://localhost:3000/groups/", {
+    const response = await fetch("http://15.206.195.100:3000/groups/", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -297,7 +303,7 @@ async function updatedGroupMessage(groupId) {
 
 async function getAllUsers() {
   try {
-    const response = await fetch("http://localhost:3000/user/", {
+    const response = await fetch("http://15.206.195.100:3000/user/", {
       method: "get",
       headers: {
         "Content-Type": "application/json",

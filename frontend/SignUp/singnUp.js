@@ -10,7 +10,7 @@ registerForm.onsubmit = async (e) => {
       password: e.target.password.value,
     };
     console.log(userData);
-    const response = await fetch("http://localhost:3000/user/register", {
+    const response = await fetch("http://15.206.195.100:3000/user/register", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -24,10 +24,10 @@ registerForm.onsubmit = async (e) => {
       e.target.email.value = "";
       e.target.phone.value = "";
       e.target.password.value = "";
-      alert(userResult.message)
-      window.location.href = "../Login/login.html"
-    }else{
-        alert(userResult.message)
+      alert(userResult.message);
+      window.location.href = "../Login/login.html";
+    } else {
+      alert(userResult.message);
     }
     console.log(userResult);
   } catch (error) {

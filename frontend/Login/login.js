@@ -8,7 +8,7 @@ loginForm.onsubmit = async (e) => {
       password: e.target.password.value,
     };
     console.log(userData);
-    const response = await fetch("http://localhost:3000/user/login", {
+    const response = await fetch("http://15.206.195.100:3000/user/login", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -20,9 +20,9 @@ loginForm.onsubmit = async (e) => {
     if (userResult.success) {
       e.target.email.value = "";
       e.target.password.value = "";
-      localStorage.setItem("authToken", userResult.token)
+      localStorage.setItem("authToken", userResult.token);
       alert(userResult.message);
-      window.location.href ="../Home/index.html"
+      window.location.href = "../Home/index.html";
     } else {
       alert(userResult.message);
     }
