@@ -1,180 +1,336 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  body {
-    font-family: Arial, sans-serif;
-  }
-
-  /* Navbar styles */
-  .navbar {
-    background-color: #333;
-    color: #fff;
-    padding: 0 10px;
-    display: flex;
-    justify-content: space-between;
-    height: 50px;
-    line-height: 50px;
-  }
-  .navbar-brand {
-    font-size: 24px;
-    font-weight: bold;
-  }
- 
- .nav-links button{
-    border: none;
-    background-color: inherit;
-    color: #fff;
-    font-size: 16px;
-    margin-right: 10px;
-    cursor: pointer;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, sans-serif;
 }
 
- /* Style the tab */
- .tab {
-    float: left;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-    width: 300px;
-    height: calc(100vh - 100px);
-    overflow-y: auto;
-  }
+/* Navbar styles */
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  line-height: 50px;
+}
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+}
 
-  /* Style the buttons inside the tab */
-  .tab button {
-    display: block;
-    background-color: inherit;
-    color: black;
-    padding: 22px 16px;
-    width: 100%;
-    border: none;
-    outline: none;
-    text-align: left;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 17px;
-  }
+.nav-links button {
+  border: none;
+  background-color: inherit;
+  color: #fff;
+  font-size: 16px;
+  margin-right: 10px;
+  cursor: pointer;
+}
 
-  /* Change background color of buttons on hover */
-  .tab button:hover {
-    background-color: #ddd;
-  }
+/* Style the tab */
+.tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width: 300px;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+}
 
-  /* Create an active/current "tab button" class */
-  .tab button.active {
-    background-color: #ccc;
-  }
+/* Style the buttons inside the tab */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+}
 
-  /* Style the tab content */
-  #tabcontent-wrapper {
-    position: relative;
-    background-image: url(./images/body-bgc.jpg);
-    background-color: rgba(255, 255, 255, 1);
-    float: left;
-    width: calc(100% - 300px);
-    border-left: none;
-    height: calc(100vh - 100px);
-  }
-  .tabcontent {
-    display: none;
-  }
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
 
-  .group-header{
-    background-color: rebeccapurple;
-    padding: 10px 20px;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .group-header span{
-    display: block;
-  }
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: #ccc;
+}
 
-  .send-message-wrapper{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    width: inherit;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* background-color: rebeccapurple; */
-  }
+/* Style the tab content */
+#tabcontent-wrapper {
+  position: relative;
+  background-image: url(./images/body-bgc.jpg);
+  background-color: rgba(255, 255, 255, 1);
+  float: left;
+  width: calc(100% - 300px);
+  border-left: none;
+  height: calc(100vh - 100px);
+}
+.tabcontent {
+  display: none;
+}
 
-  .send-message-wrapper input[type="text"]{
-    flex: 4;
-    padding: 6px;
-    font-size: 17px;
-  }
+.group-header {
+  height: 40px;
+  background-color: rebeccapurple;
+  line-height: 40px;
+  padding: 0px 20px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.group-header span {
+  display: block;
+}
 
-  .send-message-wrapper button{
-    flex: 1;
-    padding: 8px;
-    font-size: 17px;
-    background-color: #132df2;
-    color: #fff;
-    border: none;
-  }
+.send-message-wrapper {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rebeccapurple; */
+}
+
+.send-message-wrapper input[type="text"] {
+  flex: 4;
+  padding: 6px;
+  font-size: 17px;
+}
+
+.send-message-wrapper button {
+  flex: 1;
+  padding: 8px;
+  font-size: 17px;
+  background-color: #132df2;
+  color: #fff;
+  border: none;
+}
 .footer {
-    background-color: #333;
-    color: #fff;
-    /* padding: 20px; */
-    text-align: center;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-  }
+  background-color: #333;
+  color: #fff;
+  /* padding: 20px; */
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+}
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  display: none; /* Hide the overlay by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
 
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-    display: none; /* Hide the overlay by default */
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-  }
+/* Style for the popup container */
+.popup {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
 
-  /* Style for the popup container */
-  .popup {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
+/* Style for the form inside the popup */
+.popup form {
+  display: flex;
+  flex-direction: column;
+}
 
-  /* Style for the form inside the popup */
-  .popup form {
-    display: flex;
-    flex-direction: column;
-  }
+/* Style for the close button */
+.popup .close {
+  align-self: flex-end;
+  cursor: pointer;
+}
 
-  /* Style for the close button */
-  .popup .close {
-    align-self: flex-end;
-    cursor: pointer;
-  }
+/* group messages */
 
+.group-messages {
+  list-style-type: none;
+  /* background-color: red; */
+  color: #1f1e1e;
+  padding: 20px;
+  height: calc(100vh - 175px);
+  overflow-y: auto;
+}
 
-  /* group messages */
+.group-messages li {
+  margin-bottom: 16px;
+  color: black;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
 
-  .group-messages{
-    list-style-type: none;
-    /* background-color: red; */
-    color: #1f1e1e;
-    padding: 10px 12px;
-  }
+ul li.left {
+  justify-content: left;
+}
+ul li.right {
+  justify-content: right;
+}
 
-  .group-messages li{
-    padding: 2px 0;
-  }
+.group-messages li div {
+  width: 90%;
+  max-width: 200px;
+  height: auto;
+  max-height: 200px;
+  background-color: #fff;
+  padding: 10px;
+  margin: 5px;
+}
+.group-messages li div span {
+  display: block;
+  color: red;
+  padding: 0 12px;
+}
+
+.group-messages li div p {
+  padding: 6px 12px;
+}
+
+/* drropdown */
+
+.add-user-btn-container,
+.remove-user-btn-container,
+.show-user-btn-container {
+  position: relative;
+}
+
+.add-user-btn,
+.remove-user-btn,
+.show-member-btn {
+  border: none;
+  background-color: inherit;
+  color: #d4d4d4;
+  font-size: 15px;
+}
+.add-user-btn:hover,
+.remove-user-btn:hover,
+.show-member-btn:hover {
+  color: #7d7d7d;
+}
+/* .remove-user-btn{
+  position: relative;
+} */
+.dropdown {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  z-index: 100;
+  display: none;
+  float: left;
+  min-width: 12rem;
+  padding: 0.5rem 0;
+  /* margin: 0.125rem 0 0; */
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  /* background-clip: padding-box; */
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+}
+
+#show-member-dropdown {
+  position: absolute;
+  top: 40px;
+  right: -20px;
+  z-index: 100;
+  display: none;
+  float: left;
+  min-width: 12rem;
+  padding: 0.5rem 0;
+  /* margin: 0.125rem 0 0; */
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  /* background-clip: padding-box; */
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+}
+
+#show-member-dropdown.show {
+  display: block;
+}
+.dropdown.show {
+  display: block;
+}
+
+/* add user */
+
+.user-input {
+  width: 100%;
+  font-size: 16px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+.updating-user-list {
+  height: 200px;
+  overflow-y: auto;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.updating-user-list li {
+  /* position: relative; */
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.updating-user-list li:hover {
+  background-color: #e93e3e;
+  color: #fff;
+}
+.updating-user-list li button {
+  /* position: absolute; */
+
+  padding: 10px;
+  background-color: #0f0fcb;
+  cursor: pointer;
+  border: none;
+  color: white;
+  font-size: 16px;
+  /* border-radius: 50%; */
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

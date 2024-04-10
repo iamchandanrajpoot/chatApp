@@ -1,6 +1,5 @@
 const { Sequelize } = require("sequelize");
 const Message = require("../models/message");
-const User = require("../models/user");
 
 exports.postMessage = async (req, res) => {
   try {

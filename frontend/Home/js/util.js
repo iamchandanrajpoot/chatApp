@@ -1,9 +1,130 @@
+function parseJwt(token) {
+  var base64Url = token.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  var jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
+
+  return JSON.parse(jsonPayload);
+}
+// remove user from group
+
+const makeUserAdmin = async (data) => {
+  try {
+    const response = await fetch(`http://localhost:3000/groups/make-admin`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("authToken"),
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    return result;
+  } catch {
+    console.log(error);
+  }
+};
+
+const removeUserFromGroup = async (data) => {
+  try {
+    const response = await fetch(`http://localhost:3000/groups/remove-user`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("authToken"),
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    if (result.success) {
+      return result;
+    } else {
+      return { error: result.message, success: false };
+    }
+  } catch {
+    console.log(error);
+  }
+};
+// add user to group using API
+const addUserToGroupApi = async (data) => {
+  console.log(data);
+  try {
+    const response = await fetch("http://localhost:3000/groups/add-user", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("authToken"),
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    if (result.success) {
+      return result;
+    } else {
+      return { error: result.message, success: false };
+    }
+  } catch (error) {
+    console.log(error);
+    return { error: "internal server errro", success: false };
+  }
+};
+
+const getRemainingUsers = async (groupId) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/groups/${groupId}/remaining-users`,
+      {
+        method: "get",
+        headers: {
+          Authorization: localStorage.getItem("authToken"),
+        },
+      }
+    );
+    const data = await response.json();
+    if (data.success) {
+      console.log(data);
+      return data.users;
+    } else {
+      console.log(data.message);
+      return null;
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+async function getGroupUsersApi(groupId) {
+  const response = await fetch(
+    `http://localhost:3000/groups/${groupId}/members`,
+    {
+      method: "GET",
+      headers: new Headers({
+        Authorization: `${localStorage.getItem("authToken")}`,
+      }),
+    }
+  );
+
+  const result = await response.json();
+  // console.log("group users", result);
+  return result.users;
+}
+
 async function getGroupMessages(groupId) {
-    const lastMsgIdObjArr = JSON.parse(localStorage.getItem("lastMessageIdObjArr")) || [];
-    const lastMsgIdObj = lastMsgIdObjArr.find(lastMsgIdObj => lastMsgIdObj.id === groupId);
-    // If the lastMsgIdObj is found, assign its lastMsgId, otherwise, assign 0
-    const lastMsgId = lastMsgIdObj ? lastMsgIdObj.lastMsgId : 0;
-    
+  const lastMsgIdObjArr =
+    JSON.parse(localStorage.getItem("lastMessageIdObjArr")) || [];
+  const lastMsgIdObj = lastMsgIdObjArr.find(
+    (lastMsgIdObj) => lastMsgIdObj.id === groupId
+  );
+  // If the lastMsgIdObj is found, assign its lastMsgId, otherwise, assign 0
+  const lastMsgId = lastMsgIdObj ? lastMsgIdObj.lastMsgId : 0;
 
   console.log("lastmsg id", lastMsgId);
   try {
@@ -54,7 +175,7 @@ async function getGroups() {
       },
     });
     const result = await response.json();
-    console.log(result.groupsWithUserCounts)
+    console.log(result.groupsWithUserCounts);
     return result.groupsWithUserCounts;
   } catch (error) {
     console.log(error);
@@ -143,10 +264,30 @@ async function updatedGroupMessage(groupId) {
       const mainUl = mainDiv.querySelector(".group-messages");
       mainUl.innerHTML = "";
       localGroupMessages.groupMessages.forEach((groupMessage) => {
+        console.log(groupMessage);
         const li = document.createElement("li");
-        li.className = "group-message";
-        li.innerHTML = `${groupMessage.message}`;
-        mainUl.appendChild(li);
+        const userStoredInLocal = parseJwt(localStorage.getItem("authToken"));
+        console.log(userStoredInLocal);
+        if (userStoredInLocal.id == groupMessage.userId) {
+          console.log("right");
+          li.classList.add("right");
+          li.innerHTML = `
+         <div>
+         <span>You</span>
+         <p> ${groupMessage.message} </p>
+         </div>
+          `;
+        } else {
+          console.log("left");
+          li.classList.add("left");
+          li.innerHTML = `
+          <div>
+          <span>${groupMessage.userName}</span>
+          <p> ${groupMessage.message} </p>
+          </div>
+          `;
+        }
+        mainUl.append(li);
       });
     }
   } catch (error) {
@@ -181,12 +322,7 @@ function openTab(evt, groupId) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
   document.getElementById(groupId).style.display = "block";
-  if (evt) {
-    evt.currentTarget.className += " active";
-  } else {
-    document.querySelector(`button[key="${groupId}"]`).className += " active";
-  }
-  localStorage.setItem("lastActiveTabId", groupId);
+  evt.currentTarget.className += " active";
 }
 export {
   getGroupMessages,
@@ -196,4 +332,10 @@ export {
   updatedGroupMessage,
   getAllUsers,
   openTab,
+  parseJwt,
+  getGroupUsersApi,
+  getRemainingUsers,
+  addUserToGroupApi,
+  removeUserFromGroup,
+  makeUserAdmin,
 };
