@@ -25,7 +25,6 @@ document.addEventListener(
   }
 );
 
-
 const createGroupForm = document.getElementById("create-group-form");
 createGroupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -52,9 +51,8 @@ createGroupForm.addEventListener("submit", async (e) => {
         checkbox.checked = false;
       });
 
-      window.alert("group created succussfully!")
-      window.location.href = "http://127.0.0.1:5500/frontend/Home/index.html"
-
+      window.alert("group created succussfully!");
+      window.location.href = "../index.html";
     }
   } catch (error) {
     console.log(error);

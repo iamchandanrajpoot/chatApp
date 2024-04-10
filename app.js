@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
@@ -26,11 +27,11 @@ app.use("/message", messageRouter);
 app.use("/groups", groupRouter);
 
 app.use((req, res) => {
-  res.send("No route found!");
+  console.log(req.url);
+  res.sendFile(path.join(__dirname, `/frontend/${req.url}`));
 });
 
 sequelize
-  // .sync({force: true})
   .sync()
   .then(() => {
     console.log("models synced!");
