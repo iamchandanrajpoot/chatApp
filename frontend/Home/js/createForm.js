@@ -52,7 +52,7 @@ createGroupForm.addEventListener("submit", async (e) => {
       });
 
       window.alert("group created succussfully!");
-      window.location.href = "../index.html";
+      window.location.href = "../Home/index.html";
     }
   } catch (error) {
     console.log(error);
