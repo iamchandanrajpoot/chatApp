@@ -1,4 +1,4 @@
-import { createGroup, getAllUsers } from "./util.js";
+import { getAllUsers, socket } from "./util.js";
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -42,19 +42,13 @@ createGroupForm.addEventListener("submit", async (e) => {
     userIds: userIds,
   };
   console.log(groupData);
-  try {
-    const result = await createGroup(groupData);
-    if (result.success) {
-      e.target.name.value = "";
-      const checkboxes = e.target.querySelectorAll('input[type="checkbox"]');
-      checkboxes.forEach((checkbox) => {
-        checkbox.checked = false;
-      });
-
-      window.alert("group created succussfully!");
+  socket.emit("create_group", groupData);
+  socket.on("group_created", (data) => {
+    if (data.success) {
+      alert(data.message);
       window.location.href = "../Home/index.html";
+    } else {
+      alert(data.message);
     }
-  } catch (error) {
-    console.log(error);
-  }
+  });
 });
