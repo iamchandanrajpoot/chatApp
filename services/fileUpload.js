@@ -1,5 +1,5 @@
 const fs = require("fs").promises;
-const cloudinary = require("../config/cloudinary.js");
+const cloudinary = require("../configs/cloudinary.js");
 
 const uploadFileToCloudinary = async (localFilePath) => {
   try {

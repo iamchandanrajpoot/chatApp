@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/dbConfig");
+const sequelize = require("../configs/dbConfig");
 
 const Group = sequelize.define(
   "Group",
@@ -16,7 +16,7 @@ const Group = sequelize.define(
     },
     createdBy: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     createdAt: {
       type: DataTypes.DATE,

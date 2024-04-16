@@ -1,19 +1,25 @@
 const path = require("path");
-const fs = require("fs").promises;
+
 const dotenv = require("dotenv");
 dotenv.config();
 
 const cors = require("cors");
-const sequelize = require("./config/dbConfig");
+const sequelize = require("./configs/dbConfig.js");
+
+const Group = require("./models/group.js");
+const User = require("./models/user.js");
+
 const userRouter = require("./routes/userRoutes");
 const messageRouter = require("./routes/messageRoutes.js");
 const groupRouter = require("./routes/groupRoutes.js");
 const { app, server, io, express } = require("./server.js");
-const Group = require("./models/group.js");
-const User = require("./models/user.js");
-const { getSockets, userSocketIDs } = require("./util/helper.js");
-const uploadFileToCloudinary = require("./services/fileUpload.js");
+
+const { getSockets, userSocketIDs } = require("./utils/helpers.js");
 const upload = require("./middleware/multer.js");
+const { uploadFile } = require("./controllers/uploadFile.js");
+
+const cron = require("node-cron");
+const { cronJobHandler } = require("./services/cronJob.js");
 
 // associations
 require("./models/association.js");
@@ -33,26 +39,15 @@ app.use("/user", userRouter);
 app.use("/message", messageRouter);
 app.use("/groups", groupRouter);
 // upload file
-app.post("/upload", upload.single("uploaded_file"), async (req, res) => {
-  try {
-    const response = await uploadFileToCloudinary(req.file.path);
-    if (response) {
-      // delete file from server
-      await fs.unlink(req.file.path);
-      res.json({ response, success: true });
-    } else {
-      res.status(500).json({ error: "Error uploading file", success: false });
-    }
-  } catch (error) {
-    console.error("Error uploading file:", error);
-    res.status(500).json({ error: "Error uploading file", success: false });
-  }
-});
+app.post("/upload", upload.single("uploaded_file"), uploadFile);
 
 app.use((req, res) => {
   console.log(req.url);
   res.sendFile(path.join(__dirname, `/frontend/${req.url}`));
 });
+
+// Define cron job to run every night at midnight
+cron.schedule("0 0 * * *", cronJobHandler);
 
 // socket.io connection
 io.on("connection", (socket) => {

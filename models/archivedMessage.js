@@ -1,8 +1,8 @@
 const sequelize = require("../configs/dbConfig");
 const { DataTypes } = require("sequelize");
 
-const Message = sequelize.define(
-  "Message",
+const ArchivedMessage = sequelize.define(
+  "ArchivedMessage",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -36,4 +36,4 @@ const Message = sequelize.define(
   { updatedAt: false }
 );
 
-module.exports = Message;
+module.exports = ArchivedMessage;
