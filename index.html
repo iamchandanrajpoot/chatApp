@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Media File Sharing</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* styles.css */
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        padding: 0;
+      }
+
+      .chat-container {
+        width: 100%;
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .messages {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        min-height: 200px;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      .message {
+        margin-bottom: 10px;
+      }
+
+      .message img,
+      .message video {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+      }
+
+      .input-container {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+      }
+
+      input[type="file"] {
+        flex: 1;
+        margin-right: 10px;
+      }
+
+      input[type="text"] {
+        flex: 2;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        outline: none;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="messages">
+        <!-- Messages will be displayed here -->
+      </div>
+      <div class="input-container">
+        <input type="file" id="file-input" accept="image/*, video/*">
+        <input type="text" id="text-input" placeholder="Type your message..." >
+        <button onclick="sendMessage()">Send</button>
+      </div>
+
+    <script>
+    function sendMessage() {
+  const fileInput = document.getElementById('file-input');
+  const textInput = document.getElementById('text-input');
+  const file = fileInput.files[0];
+  const text = textInput.value.trim();
+
+  if (!file && !text) {
+    alert('Please select a file or enter a message to send.');
+    return;
+  }
+
+  // Handle sending file
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      displayMessage(event.target.result, 'file');
+    };
+    reader.readAsDataURL(file);
+    fileInput.value = ''; // Clear input after sending
+  }
+
+  // Handle sending text
+  if (text) {
+    displayMessage(text, 'text');
+    textInput.value = ''; // Clear input after sending
+  }
+}
+
+function displayMessage(content, type) {
+  const messageArea = document.querySelector('.messages');
+  const messageContainer = document.createElement('div');
+  messageContainer.classList.add('message');
+
+  if (type === 'file') {
+    const fileType = content.startsWith('data:image') ? 'image' : 'video';
+    const mediaElement = document.createElement(fileType);
+    mediaElement.src = content;
+    mediaElement.width = 200; // Adjust dimensions as needed
+    mediaElement.controls = true; // For videos
+    messageContainer.appendChild(mediaElement);
+  } else if (type === 'text') {
+    const textElement = document.createElement('p');
+    textElement.textContent = content;
+    messageContainer.appendChild(textElement);
+  }
+
+  messageArea.appendChild(messageContainer);
+  messageArea.scrollTop = messageArea.scrollHeight; // Scroll to bottom
+}
+
+        const fileInput = document.getElementById("file-input");
+        const file = fileInput.files[0];
+        if (file) {
+          // You can handle file uploading/sending here
+          // For example, you can display the file in the message area
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            const messageArea = document.querySelector(".messages");
+            const fileType = file.type.startsWith("image") ? "image" : "video";
+            const mediaElement = document.createElement(fileType);
+            mediaElement.src = event.target.result;
+            mediaElement.width = 200; // Adjust dimensions as needed
+            mediaElement.controls = true; // For videos
+            messageArea.appendChild(mediaElement);
+            messageArea.scrollTop = messageArea.scrollHeight; // Scroll to bottom
+          };
+          reader.readAsDataURL(file);
+          // Clear input after sending
+          fileInput.value = "";
+        } else {
+          alert("Please select a file to send.");
+        }
+      
+    </script>
+  </body>
+</html>

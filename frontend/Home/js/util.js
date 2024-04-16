@@ -234,29 +234,39 @@ async function updatedGroupMessage(groupId) {
       const mainUl = mainDiv.querySelector(".group-messages");
       mainUl.innerHTML = "";
       localGroupMessages.groupMessages.forEach((groupMessage) => {
-        console.log(groupMessage);
         const li = document.createElement("li");
+        // li.style.overflow = "hidden";
+        // li.style.whiteSpace = "pre-wrap";
         const userStoredInLocal = parseJwt(localStorage.getItem("authToken"));
-        console.log(userStoredInLocal);
-        if (userStoredInLocal.id == groupMessage.userId) {
-          console.log("right");
-          li.classList.add("right");
-          li.innerHTML = `
-         <div>
-         <span>You</span>
-         <p> ${groupMessage.message} </p>
-         </div>
-          `;
-        } else {
-          console.log("left");
-          li.classList.add("left");
-          li.innerHTML = `
-          <div>
-          <span>${groupMessage.userName}</span>
-          <p> ${groupMessage.message} </p>
-          </div>
-          `;
+
+        const isCurrentUser = userStoredInLocal.id === groupMessage.userId;
+        const positionClass = isCurrentUser ? "right" : "left";
+
+        const messageContent = groupMessage.message
+          ? `<p>${groupMessage.message}</p>`
+          : "";
+        let mediaContent = "";
+        if (groupMessage.mediaUrl) {
+          if (
+            groupMessage.mediaUrl.endsWith(".mp4") ||
+            groupMessage.mediaUrl.endsWith(".mov")
+          ) {
+            mediaContent = `<video controls style="max-width: 100%; max-height: 100%; height: auto;"><source src="${groupMessage.mediaUrl}" type="video/mp4"></video>`;
+          } else {
+            mediaContent = `<img style="max-width: 100%; max-height: 100%; height: auto;" src="${groupMessage.mediaUrl}" alt="image">
+            `;
+          }
         }
+
+        li.classList.add(positionClass);
+        li.innerHTML = `
+          <div>
+            <span>${isCurrentUser ? "You" : groupMessage.userName}</span>
+            ${messageContent}
+            ${mediaContent}
+          </div>
+        `;
+
         mainUl.append(li);
       });
     }
@@ -374,11 +384,9 @@ async function displayGroupAndContentDynamic() {
                   userId,
                   groupId,
                 };
-                // window.alert(userId);
-                // window.alert(groupId);
+
                 const result = await addUserToGroupApi(data);
                 console.log(result);
-                // window.alert(result);
 
                 if (result.success) {
                   e.target.parentElement.remove();
@@ -488,9 +496,13 @@ async function displayGroupAndContentDynamic() {
 
         const sendMessageWrapper = document.createElement("div");
         sendMessageWrapper.className = "send-message-wrapper";
+
         sendMessageWrapper.innerHTML = `
-          <input type="text" name="message" id="message" placeholder="Send text here..." required/>
+         <form onsubmit="return false;" enctype="multipart/form-data" >
+          <input type="file" class="file-input" name="uploaded_file" />
+          <input type="text" class="text-input" placeholder="Type your message..." />
           <button class="send-message-btn">Send</button>
+         </form>
         `;
         tabcontentDiv.appendChild(sendMessageWrapper);
         tabcontentWrapper.appendChild(tabcontentDiv);

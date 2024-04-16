@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs").promises;
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -11,6 +12,8 @@ const { app, server, io, express } = require("./server.js");
 const Group = require("./models/group.js");
 const User = require("./models/user.js");
 const { getSockets, userSocketIDs } = require("./util/helper.js");
+const uploadFileToCloudinary = require("./services/fileUpload.js");
+const upload = require("./middleware/multer.js");
 
 // associations
 require("./models/association.js");
@@ -29,6 +32,22 @@ app.use(express.json());
 app.use("/user", userRouter);
 app.use("/message", messageRouter);
 app.use("/groups", groupRouter);
+// upload file
+app.post("/upload", upload.single("uploaded_file"), async (req, res) => {
+  try {
+    const response = await uploadFileToCloudinary(req.file.path);
+    if (response) {
+      // delete file from server
+      await fs.unlink(req.file.path);
+      res.json({ response, success: true });
+    } else {
+      res.status(500).json({ error: "Error uploading file", success: false });
+    }
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    res.status(500).json({ error: "Error uploading file", success: false });
+  }
+});
 
 app.use((req, res) => {
   console.log(req.url);
@@ -43,23 +62,30 @@ io.on("connection", (socket) => {
   console.log(userSocketIDs);
   socket.on("post_message", async (data) => {
     try {
-      // console.log(data);
+      console.log(data);
       const group = await Group.findOne({ where: { id: data.groupId } });
-      let socketMembers;
       if (group) {
-        const message = await group.createMessage({
-          message: data.message,
-          userId: socket.user.id,
-          userName: socket.user.name,
-        });
-        socketMembers = getSockets(data.groupMembers);
-        console.log(socketMembers);
-        console.log(message);
+        let resultMessage;
+        if (data.mediaUrl) {
+          resultMessage = await group.createMessage({
+            mediaUrl: data.mediaUrl,
+            userId: socket.user.id,
+            userName: socket.user.name,
+            isMediaFile: true,
+          });
+        } else {
+          resultMessage = await group.createMessage({
+            message: data.message,
+            userId: socket.user.id,
+            userName: socket.user.name,
+          });
+        }
+        const socketMembers = getSockets(data.groupMembers);
+        console.log(resultMessage);
         io.to(socketMembers).emit("new_message", {
-          message,
+          resultMessage,
           groupId: group.id,
         });
-        console.log("sdjksjkgs");
       } else {
         console.log("Group not found");
         // Inform the client that the group does not exist
@@ -103,6 +129,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
+    userSocketIDs.delete(`user_${user.id}`);
     console.log("user disconnected");
   });
 });

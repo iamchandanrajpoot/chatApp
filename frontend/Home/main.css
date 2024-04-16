@@ -100,26 +100,53 @@ body {
   right: 0;
   left: 0;
   width: inherit;
+
+  /* padding: 10px; */
+}
+
+.send-message-wrapper form {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: rebeccapurple; */
+  background-color: #fff;
+  width: 100%;
+}
+
+.send-message-wrapper input[type="file"] {
+  flex: 1;
+  margin-right: 10px;
+  background-color: #fff;
 }
 
 .send-message-wrapper input[type="text"] {
-  flex: 4;
-  padding: 6px;
-  font-size: 17px;
+  flex: 2;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
 }
 
 .send-message-wrapper button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.send-message-wrapper button:hover {
+  background-color: #0056b3;
+}
+
+/* .send-message-wrapper button {
   flex: 1;
   padding: 8px;
   font-size: 17px;
   background-color: #132df2;
   color: #fff;
   border: none;
-}
+} */
 .footer {
   background-color: #333;
   color: #fff;
@@ -196,7 +223,6 @@ ul li.right {
   width: 90%;
   max-width: 200px;
   height: auto;
-  max-height: 200px;
   background-color: #fff;
   padding: 10px;
   margin: 5px;
