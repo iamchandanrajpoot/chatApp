@@ -5,7 +5,7 @@ async function getMessages() {
     const lastMsgId = localStorage.getItem("lastMessageId") || 0;
     console.log("lastMessageid", lastMsgId);
     const response = await fetch(
-      `http://localhost:3000/message/?lastMessageId=${lastMsgId}`,
+      `http://15.206.195.100:3000/message/?lastMessageId=${lastMsgId}`,
       {
         method: "get",
         headers: {
@@ -96,7 +96,7 @@ const sendMsgBtn = document.getElementById("send-message");
 sendMsgBtn.onclick = async () => {
   try {
     const message = document.getElementById("message").value;
-    const response = await fetch("http://localhost:3000/message/send", {
+    const response = await fetch("http://15.206.195.100:3000/message/send", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

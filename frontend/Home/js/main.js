@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           formData.append("uploaded_file", file);
 
           try {
-            const response = await fetch("http://localhost:3000/upload", {
+            const response = await fetch("http://15.206.195.100:3000/upload", {
               method: "POST",
               body: formData,
             });
