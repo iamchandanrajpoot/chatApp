@@ -1,12 +1,13 @@
 const { Router } = require("express");
-const { autherizeUser } = require("../middleware/authorizeUser");
-const { postMessage, getMessages } = require("../controllers/message");
+const { autherizeUser } = require("../middlewares/authorizeUser");
+const {
+  postMessage,
+  getMessages,
+} = require("../controllers/messageController");
 
-const router = Router()
+const router = Router();
 
-
-router.post("/send", autherizeUser, postMessage)
-router.get("/", autherizeUser, getMessages)
-
+router.post("/send", autherizeUser, postMessage);
+router.get("/", autherizeUser, getMessages);
 
 module.exports = router;

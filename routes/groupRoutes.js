@@ -9,8 +9,8 @@ const {
   addUserToGroup,
   removeUserFromGroup,
   makeUserAdmin,
-} = require("../controllers/group");
-const { autherizeUser } = require("../middleware/authorizeUser");
+} = require("../controllers/groupController");
+const { autherizeUser } = require("../middlewares/authorizeUser");
 
 const router = Router();
 

@@ -15,8 +15,8 @@ const groupRouter = require("./routes/groupRoutes.js");
 const { app, server, io, express } = require("./server.js");
 
 const { getSockets, userSocketIDs } = require("./utils/helpers.js");
-const upload = require("./middleware/multer.js");
-const { uploadFile } = require("./controllers/uploadFile.js");
+const upload = require("./middlewares/multer.js");
+const { uploadFile } = require("./controllers/uploadFileController.js");
 
 const cron = require("node-cron");
 const { cronJobHandler } = require("./services/cronJob.js");
@@ -25,7 +25,7 @@ const { cronJobHandler } = require("./services/cronJob.js");
 require("./models/association.js");
 
 // middleware
-require("./middleware/authorizeSocketUser.js");
+require("./middlewares/authorizeSocketUser.js");
 
 // handle cors
 app.use(cors());
